@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/ui/ui_temp.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,7 +11,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xFF63C0C2),
+        accentColor: Color(0xFF48AAAC),
+        fontFamily: 'Georgia',
+        textTheme: TextTheme(
+          headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+          headline2: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Color(0xFFd7efef)),
+          headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+        ),
       ),
       home: Photrast(),
     );
@@ -64,11 +73,15 @@ class Photrast extends StatelessWidget {
                       ' 당신의\n 여행을\n 시작하시겠습니까?',
                       style: TextStyle(color: Colors.white, fontSize: 30),
                     )),
+                // 로고 이미지
                 Positioned(
                     top: mediaSize.height / 4 + 200,
                     left: mediaSize.width / 2 - 20,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => UiTemp()),
+                        ),
                       child: Image.asset(
                         'assets/logo_img.png',
                         width: 30,
