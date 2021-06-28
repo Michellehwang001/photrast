@@ -57,8 +57,6 @@ class Photrast extends StatelessWidget {
                 Positioned(
                   top: mediaSize.height / 4,
                   left: (mediaSize.width - 300) / 3,
-                  // top: mediaSize.height / 4,
-                  // left: mediaSize.width / 12,
                   child: Container(
                     height: 300,
                     width: 300,
@@ -75,7 +73,7 @@ class Photrast extends StatelessWidget {
                 ),
                 Positioned(
                     top: mediaSize.height / 4 + 50,
-                    left: mediaSize.width / 6,
+                    left: (mediaSize.width - 300) / 3 + 50,
                     child: Text(
                       ' 당신의\n 여행을\n 시작하시겠습니까?',
                       style: TextStyle(color: Colors.white, fontSize: 30),
