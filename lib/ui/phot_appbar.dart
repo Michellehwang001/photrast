@@ -7,7 +7,7 @@ class PhotAppBar extends StatelessWidget implements PreferredSizeWidget{
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        'UI Template...',
+        'PHOTRAST',
         style: Theme.of(context).textTheme.headline2,
       ),
       actions: [

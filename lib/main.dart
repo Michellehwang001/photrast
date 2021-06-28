@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/ui/phot_appbar.dart';
 import 'package:project/ui/ui_temp.dart';
 
 void main() {
@@ -33,8 +34,11 @@ class Photrast extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaSize = MediaQuery.of(context).size;
+    print('width : ${mediaSize.width}');
+    print('width2 : ${(mediaSize.width - 300) / 3}');
 
     return Scaffold(
+      appBar: PhotAppBar(),
       // 백그라운드 이미지 Container
       body: Container(
         decoration: BoxDecoration(
@@ -52,7 +56,9 @@ class Photrast extends StatelessWidget {
                 // 흰 테두리
                 Positioned(
                   top: mediaSize.height / 4,
-                  left: mediaSize.width / 12,
+                  left: (mediaSize.width - 300) / 3,
+                  // top: mediaSize.height / 4,
+                  // left: mediaSize.width / 12,
                   child: Container(
                     height: 300,
                     width: 300,
