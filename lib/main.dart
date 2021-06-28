@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Georgia',
         textTheme: TextTheme(
           headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-          headline2: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Color(0xFFd7efef)),
+          headline2: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
+          headline3: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white),
           headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
           bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
         ),
