@@ -29,7 +29,6 @@ class Photrast extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             // Background Image
-
                 Expanded(
                     child: Container(
                         child: Image.asset(
