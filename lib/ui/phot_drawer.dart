@@ -17,7 +17,7 @@ class PhotDrawer extends StatelessWidget {
               children: [
                 CircleAvatar(
                   backgroundImage: NetworkImage(
-                      'https://lh3.googleusercontent.com/proxy/7ElGQDW8GGGHJ1I8G0JcowGQpMQLHWU-iFYmLf_9yRCcY3kMQqjyJ0Xy0iw_6japNauEcQAbYAsw55RwAT0YAKiYIm2rBp0Fs25U4e3X_3Lk6skEY3QoRktZFcaUMoaHTT2up72kfLW_XQ'),
+                      'https://cphoto.asiae.co.kr/listimglink/6/2020072310235476451_1595467435.jpeg'),
                   maxRadius: 50.0,
                 ),
                 Text(
