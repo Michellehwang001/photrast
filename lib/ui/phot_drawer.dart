@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/ui/diary_maker/diary_maker.dart';
-
+import 'package:project/ui/diary_folder/diary_list.dart';
 import 'diary_maker/diary_timeLine.dart';
 
 class PhotDrawer extends StatelessWidget {
@@ -37,13 +36,23 @@ class PhotDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.message),
             title: Text('Diary Time Line'),
-           onTap: () {
-             Navigator.push(context, MaterialPageRoute(builder: (context) => DiaryTimeLine(),));
-           },
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DiaryTimeLine(),
+                  ));
+            },
           ),
           ListTile(
             leading: Icon(Icons.calendar_view_day_outlined),
             title: Text('Diary'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DiaryList()),
+              );
+            },
           ),
           ListTile(
             leading: Icon(Icons.settings),
