@@ -1,10 +1,21 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:project/ui/phot_appbar.dart';
 import 'package:project/ui/ui_temp.dart';
+import 'package:project/util/camera.dart';
 
-void main() {
+
+Future<void> main() async {
+  // Fetch the available cameras before initializing the app.
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    logError(e.code, e.description);
+  }
   runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   @override
