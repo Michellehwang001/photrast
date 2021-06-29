@@ -17,98 +17,100 @@ class DiaryList extends StatelessWidget {
     return Scaffold(
       appBar: PhotAppBar(),
       // 전체 스크롤을 주기 위해 SingleChildScrollView 사용
-      body: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxHeight: mediaSize.height,
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: mediaSize.width / 2,
-                child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(8),
-                    itemCount: entries.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Column(
-                        children: [
-                          Container(
-                            height: index % 2 == 0 ? 110 : 150,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage('${entries[index]}'),
-                                fit: BoxFit.cover,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: mediaSize.height,
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: mediaSize.width / 2,
+                  child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.all(8),
+                      itemCount: entries.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            Container(
+                              height: index % 2 == 0 ? 110 : 150,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage('${entries[index]}'),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Flexible(
-                                    child: Text(
-                                  '강릉여행 즐거워~ 즐거워~ 줄거워~',
-                                  style: Theme.of(context).textTheme.headline4,
-                                )),
-                                Icon(
-                                  Icons.share,
-                                  color: Color(0xFF248B8B),
-                                ),
-                                Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      );
-                    }),
-              ),
-              Container(
-                width: mediaSize.width / 2,
-                child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(8),
-                    itemCount: entries.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Column(
-                        children: [
-                          Container(
-                            height: index % 2 == 0 ? 150 : 110,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage('${entries[index]}'),
-                                fit: BoxFit.cover,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                      child: Text(
+                                    '강릉여행 즐거워~ 즐거워~ 줄거워~',
+                                    style: Theme.of(context).textTheme.headline4,
+                                  )),
+                                  Icon(
+                                    Icons.share,
+                                    color: Color(0xFF248B8B),
+                                  ),
+                                  Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Flexible(
-                                    child: Text(
-                                  '강릉여행 즐거워~ 즐거워~ 줄거워~',
-                                  style: Theme.of(context).textTheme.headline4,
-                                )),
-                                Icon(
-                                  Icons.share,
-                                  color: Color(0xFF248B8B),
+                          ],
+                        );
+                      }),
+                ),
+                Container(
+                  width: mediaSize.width / 2,
+                  child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.all(8),
+                      itemCount: entries.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            Container(
+                              height: index % 2 == 0 ? 150 : 110,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage('${entries[index]}'),
+                                  fit: BoxFit.cover,
                                 ),
-                                Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ],
-                      );
-                    }),
-              ),
-            ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                      child: Text(
+                                    '강릉여행 즐거워~ 즐거워~ 줄거워~',
+                                    style: Theme.of(context).textTheme.headline4,
+                                  )),
+                                  Icon(
+                                    Icons.share,
+                                    color: Color(0xFF248B8B),
+                                  ),
+                                  Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                      }),
+                ),
+              ],
+            ),
           ),
         ),
       ),

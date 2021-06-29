@@ -6,6 +6,7 @@
 
 import 'dart:async';
 import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -100,6 +101,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
     WidgetsBinding.instance?.removeObserver(this);
     _flashModeControlRowAnimationController.dispose();
     _exposureModeControlRowAnimationController.dispose();
+    _focusModeControlRowAnimationController.dispose();
     super.dispose();
   }
 
@@ -125,6 +127,9 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      appBar: AppBar(
+        title: const Text('Camera example'),
+      ),
       body: Column(
         children: <Widget>[
           Expanded(
@@ -926,8 +931,6 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
   }
 }
 
-List<CameraDescription> cameras = [];
-
 class CameraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -935,4 +938,17 @@ class CameraApp extends StatelessWidget {
       home: CameraExampleHome(),
     );
   }
+}
+
+List<CameraDescription> cameras = [];
+
+Future<void> main() async {
+  // Fetch the available cameras before initializing the app.
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    logError(e.code, e.description);
+  }
+  runApp(CameraApp());
 }
