@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
           headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
           headline2: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
           headline3: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white),
+          headline4: TextStyle(fontSize: 18.0, color: Color.fromRGBO(82, 82, 82, 1)),
           headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
           bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
         ),
@@ -34,8 +35,6 @@ class Photrast extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaSize = MediaQuery.of(context).size;
-    print('width : ${mediaSize.width}');
-    print('width2 : ${(mediaSize.width - 300) / 3}');
 
     return Scaffold(
       appBar: PhotAppBar(),
