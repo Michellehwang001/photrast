@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/ui/diary_folder/diary_list.dart';
+import 'package:project/ui/kakao_map/map_init.dart';
 import 'diary_maker/diary_timeLine.dart';
 
 class PhotDrawer extends StatelessWidget {
@@ -32,6 +33,13 @@ class PhotDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.home_outlined),
             title: Text('Home'),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MapInit(),
+                  ));
+            },
           ),
           ListTile(
             leading: Icon(Icons.message),
