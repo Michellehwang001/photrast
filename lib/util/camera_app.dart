@@ -10,6 +10,18 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+
+List<CameraDescription> cameras = [];
+
+class CameraApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: CameraExampleHome(),
+    );
+  }
+}
+
 class CameraExampleHome extends StatefulWidget {
   @override
   _CameraExampleHomeState createState() {
@@ -923,16 +935,5 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
   void _showCameraException(CameraException e) {
     logError(e.code, e.description);
     showInSnackBar('Error: ${e.code}\n${e.description}');
-  }
-}
-
-List<CameraDescription> cameras = [];
-
-class CameraApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: CameraExampleHome(),
-    );
   }
 }

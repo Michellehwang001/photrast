@@ -5,26 +5,33 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:project/main.dart';
+import 'package:http/http.dart' as http;
+import 'package:project/ui/kakao_map/map_init.dart';
+import 'dart:convert';
+import 'package:project/viewmodel/test_result.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  test(
+    'http통신',
+        () async {
+      int rad = 1000;
+      var response = await http.get(Uri.parse(
+          'http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?serviceKey=l32ogI8HTVFiWOJB%2BmMSPbD%2BAExpCboabtx1ke0l0oLAJn0G5PlDB7SVXps5BGU8h7HU2woXDP5t69rN7mFytw%3D%3D&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&contentTypeId=15&mapX=126.981611&mapY=37.568477&radius=$rad&listYN=Y&_type=json'));
+      // expect(response.statusCode, 200);
+      // print(response.body);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      TestResult result = TestResult.fromJson(json.decode(response.body));
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+      for (int i = 0; i < 3; i++) {
+        print('$i번째 출력');
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+        print(result.response!.body!.items!.item![i].mapx);
+        print(result.response!.body!.items!.item![i].mapx is double? 'double' : 'string');
+        print(result.response!.body!.items!.item![i].mapy);
+        print(result.response!.body!.items!.item![i].mapy is double? 'double' : 'string');
+
+      }
+    },
+  );
 }
