@@ -1,8 +1,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.photrast.project">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    <!-- 포그라운드 위치 필요성 선언 -->
+    <!-- To request foreground location access, declare one of these permissions. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 포그라운드 위치 필요성 선언 끝 -->
+    <!-- application 속성값 android:usesCleartextTraffic="true" 추가 -->
+    <!-- http 도 허용하기 위해 application 속성값에 추가한 것 제거android:networkSecurityConfig="@xml/network_security_config" -->
    <application
         android:label="project"
         android:icon="@mipmap/ic_launcher">
+        <!-- webView http 프로토콜 문제로 추가 2021.7.6 -->
+        <!--android:networkSecurityConfig="@xml/network_security_config"-->
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

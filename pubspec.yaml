@@ -33,6 +33,9 @@ dependencies:
   path_provider: ^2.0.2
   #stream_transform: ^2.0.0
   webview_flutter: ^2.0.9
+  geolocator: ^7.2.0+1
+  http: ^0.13.3
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,11 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:project/ui/phot_appbar.dart';
 import 'package:project/ui/ui_temp.dart';
 import 'package:project/util/camera.dart';
+import 'package:project/viewmodel/map_view_model.dart';
+import 'package:provider/provider.dart';
 
 
 Future<void> main() async {
@@ -13,13 +16,20 @@ Future<void> main() async {
   } on CameraException catch (e) {
     logError(e.code, e.description);
   }
-  runApp(MyApp());
+  runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MapViewModel()),
+        ],
+        child: MyApp(),
+      )
+  );
 }
-
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
