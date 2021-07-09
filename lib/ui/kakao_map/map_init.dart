@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/viewmodel/map_view_model.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class MapInit extends StatefulWidget {
   const MapInit({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _MapInitState extends State<MapInit> {
     if(mapViewModel.isLoading == false) {
       final lng = mapViewModel.position.longitude;
       final lat = mapViewModel.position.latitude;
-      print('https://michellehwang001.github.io/web/index.html?lat=$lat&lng=$lng');
+      print('https://www.igottabook.com/photrast/kakao_map_my_location.html?lat=$lat&lng=$lng');
     }
 
     return Scaffold(
@@ -39,8 +39,24 @@ class _MapInitState extends State<MapInit> {
   }
 
   Widget _loadingWebView(double lng, double lat) {
+    String url = 'https://www.igottabook.com/photrast/kakao_map_my_location.html';
+
+    // var postData = Uint8List.fromList(utf8.encode("firstname=Foo&surname=Bar"));
+
+    // return InAppWebView(
+    //   initialUrlRequest: URLRequest(
+    //       url: Uri.parse("$url"),
+    //       method: 'POST',
+    //       body: Uint8List.fromList(utf8.encode("lat=$lat&lng=$lng")),
+    //       headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded'
+    //       }
+    //   ),
+    //   onWebViewCreated: (controller) {},
+    // );
+
     return WebView(
-      initialUrl: 'https://michellehwang001.github.io/web/index.html?lat=$lat&lng=$lng',
+      initialUrl: '$url?lat=$lat&lng=$lng',
       javascriptMode: JavascriptMode.unrestricted,
       onWebViewCreated: (WebViewController webViewController) {
         // late 초기화
