@@ -17,6 +17,4 @@ class MapViewModel with ChangeNotifier {
     notifyListeners();
     print('fetch 성공.');
   }
-
-  notifyListeners();
 }

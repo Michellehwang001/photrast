@@ -6,6 +6,7 @@ import 'package:project/viewmodel/map_view_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class MapInit extends StatefulWidget {
   const MapInit({Key? key}) : super(key: key);
@@ -44,18 +45,21 @@ class _MapInitState extends State<MapInit> {
     if(mapViewModel.isLoading == false) {
       final lng = mapViewModel.position.longitude;
       final lat = mapViewModel.position.latitude;
-      print('https://michellehwang001.github.io/web/index.html?lat=$lat&lng=$lng');
+      print('https://www.igottabook.com/photrast/kakao_map_my_location.html?lat=$lat&lng=$lng');
     }
 
     return Scaffold(
-      // appBar: AppBar(
-      //     title: Text('카카오맵 - 관광지'),
-      // ),
-      body: mapViewModel.isLoading == true ? Center(child: CircularProgressIndicator()): _loadingWebView(mapViewModel.position.longitude, mapViewModel.position.latitude),
+      appBar: AppBar(
+            title: Text('카카오맵 - 관광지'),
+        ),
+        // isLoading 에 따른 분류..
+        body:  mapViewModel.isLoading == true ? Center(child: CircularProgressIndicator()): _loadingWebView(mapViewModel.position.longitude, mapViewModel.position.latitude),
     );
   }
 
   Widget _loadingWebView(double lng, double lat) {
+    String url = 'https://www.igottabook.com/photrast/kakao_map_my_location.html';
+
     return Column(
       children: [
         Flexible(
