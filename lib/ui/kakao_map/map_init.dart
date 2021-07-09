@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project/viewmodel/test_result.dart';
 import 'package:project/viewmodel/map_view_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:project/model/model.dart';
 
 class MapInit extends StatefulWidget {
   const MapInit({Key? key}) : super(key: key);
