@@ -65,8 +65,7 @@ class _MapInitState extends State<MapInit> {
         Flexible(
           // flex: 1,
           child: WebView(
-            initialUrl:
-            'https://michellehwang001.github.io/web/index.html',
+            initialUrl: '$url?lat=$lat&lng=$lng',
             javascriptMode: JavascriptMode.unrestricted,
             onWebViewCreated:
                 (WebViewController webViewController) {
