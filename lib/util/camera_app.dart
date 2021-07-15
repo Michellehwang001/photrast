@@ -7,9 +7,11 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:camera/camera.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:project/util/firebase_api.dart';
 import 'package:video_player/video_player.dart';
-
 
 List<CameraDescription> cameras = [];
 
@@ -17,15 +19,15 @@ class CameraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CameraExampleHome(),
+      home: CameraHome(),
     );
   }
 }
 
-class CameraExampleHome extends StatefulWidget {
+class CameraHome extends StatefulWidget {
   @override
-  _CameraExampleHomeState createState() {
-    return _CameraExampleHomeState();
+  _CameraHomeState createState() {
+    return _CameraHomeState();
   }
 }
 
@@ -51,7 +53,7 @@ void logError(String code, String? message) {
   }
 }
 
-class _CameraExampleHomeState extends State<CameraExampleHome>
+class _CameraHomeState extends State<CameraHome>
     with WidgetsBindingObserver, TickerProviderStateMixin {
   CameraController? controller;
   XFile? imageFile;
@@ -151,9 +153,9 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
                 color: Colors.black,
                 border: Border.all(
                   color:
-                  controller != null && controller!.value.isRecordingVideo
-                      ? Colors.redAccent
-                      : Colors.grey,
+                      controller != null && controller!.value.isRecordingVideo
+                          ? Colors.redAccent
+                          : Colors.grey,
                   width: 3.0,
                 ),
               ),
@@ -197,13 +199,13 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
           controller!,
           child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-                return GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onScaleStart: _handleScaleStart,
-                  onScaleUpdate: _handleScaleUpdate,
-                  onTapDown: (details) => onViewFinderTap(details, constraints),
-                );
-              }),
+            return GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onScaleStart: _handleScaleStart,
+              onScaleUpdate: _handleScaleUpdate,
+              onTapDown: (details) => onViewFinderTap(details, constraints),
+            );
+          }),
         ),
       );
     }
@@ -238,24 +240,24 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
             localVideoController == null && imageFile == null
                 ? Container()
                 : SizedBox(
-              child: (localVideoController == null)
-                  ? Image.file(File(imageFile!.path))
-                  : Container(
-                child: Center(
-                  child: AspectRatio(
-                      aspectRatio:
-                      localVideoController.value.size != null
-                          ? localVideoController
-                          .value.aspectRatio
-                          : 1.0,
-                      child: VideoPlayer(localVideoController)),
-                ),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.pink)),
-              ),
-              width: 64.0,
-              height: 64.0,
-            ),
+                    child: (localVideoController == null)
+                        ? Image.file(File(imageFile!.path))
+                        : Container(
+                            child: Center(
+                              child: AspectRatio(
+                                  aspectRatio:
+                                      localVideoController.value.size != null
+                                          ? localVideoController
+                                              .value.aspectRatio
+                                          : 1.0,
+                                  child: VideoPlayer(localVideoController)),
+                            ),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.pink)),
+                          ),
+                    width: 64.0,
+                    height: 64.0,
+                  ),
           ],
         ),
       ),
@@ -279,7 +281,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
               icon: Icon(Icons.exposure),
               color: Colors.blue,
               onPressed:
-              controller != null ? onExposureModeButtonPressed : null,
+                  controller != null ? onExposureModeButtonPressed : null,
             ),
             IconButton(
               icon: Icon(Icons.filter_center_focus),
@@ -390,7 +392,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
                     style: styleAuto,
                     onPressed: controller != null
                         ? () =>
-                        onSetExposureModeButtonPressed(ExposureMode.auto)
+                            onSetExposureModeButtonPressed(ExposureMode.auto)
                         : null,
                     onLongPress: () {
                       if (controller != null) {
@@ -404,7 +406,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
                     style: styleLocked,
                     onPressed: controller != null
                         ? () =>
-                        onSetExposureModeButtonPressed(ExposureMode.locked)
+                            onSetExposureModeButtonPressed(ExposureMode.locked)
                         : null,
                   ),
                 ],
@@ -423,7 +425,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
                     max: _maxAvailableExposureOffset,
                     label: _currentExposureOffset.toString(),
                     onChanged: _minAvailableExposureOffset ==
-                        _maxAvailableExposureOffset
+                            _maxAvailableExposureOffset
                         ? null
                         : setExposureOffset,
                   ),
@@ -502,8 +504,8 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
           icon: const Icon(Icons.camera_alt),
           color: Colors.blue,
           onPressed: cameraController != null &&
-              cameraController.value.isInitialized &&
-              !cameraController.value.isRecordingVideo
+                  cameraController.value.isInitialized &&
+                  !cameraController.value.isRecordingVideo
               ? onTakePictureButtonPressed
               : null,
         ),
@@ -511,31 +513,31 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
           icon: const Icon(Icons.videocam),
           color: Colors.blue,
           onPressed: cameraController != null &&
-              cameraController.value.isInitialized &&
-              !cameraController.value.isRecordingVideo
+                  cameraController.value.isInitialized &&
+                  !cameraController.value.isRecordingVideo
               ? onVideoRecordButtonPressed
               : null,
         ),
         IconButton(
           icon: cameraController != null &&
-              cameraController.value.isRecordingPaused
+                  cameraController.value.isRecordingPaused
               ? Icon(Icons.play_arrow)
               : Icon(Icons.pause),
           color: Colors.blue,
           onPressed: cameraController != null &&
-              cameraController.value.isInitialized &&
-              cameraController.value.isRecordingVideo
+                  cameraController.value.isInitialized &&
+                  cameraController.value.isRecordingVideo
               ? (cameraController.value.isRecordingPaused)
-              ? onResumeButtonPressed
-              : onPauseButtonPressed
+                  ? onResumeButtonPressed
+                  : onPauseButtonPressed
               : null,
         ),
         IconButton(
           icon: const Icon(Icons.stop),
           color: Colors.red,
           onPressed: cameraController != null &&
-              cameraController.value.isInitialized &&
-              cameraController.value.isRecordingVideo
+                  cameraController.value.isInitialized &&
+                  cameraController.value.isRecordingVideo
               ? onStopButtonPressed
               : null,
         )
@@ -567,9 +569,9 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
               groupValue: controller?.description,
               value: cameraDescription,
               onChanged:
-              controller != null && controller!.value.isRecordingVideo
-                  ? null
-                  : onChanged,
+                  controller != null && controller!.value.isRecordingVideo
+                      ? null
+                      : onChanged,
             ),
           ),
         );
@@ -647,15 +649,41 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
     }
   }
 
+  // camera saved.
   void onTakePictureButtonPressed() {
-    takePicture().then((XFile? file) {
+
+    takePicture().then((XFile? file) async {
       if (mounted) {
         setState(() {
           imageFile = file;
           videoController?.dispose();
           videoController = null;
         });
-        if (file != null) showInSnackBar('Picture saved to ${file.path}');
+
+
+        // 찍은 사진을 firebase storage 에 저장
+        if (file != null) {
+          UploadTask? task;
+          final fileName = basename(file.path);
+          final destination = 'upload_images/$fileName';
+          File upFile = File(file.path);
+
+          task = FirebaseApi.uploadFile(destination, upFile);
+
+          if (task == null) return;
+
+          final snapshot = await task.whenComplete(() {});
+          final urlDownload = await snapshot.ref.getDownloadURL();
+
+          print('Download-Link : $urlDownload');
+          showInSnackBar('파일이 저장되었습니다.');
+
+          // Map으로 이동
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => SecondRoute()),
+          // );
+        }
       }
     });
   }
@@ -890,7 +918,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
     }
 
     final VideoPlayerController vController =
-    VideoPlayerController.file(File(videoFile!.path));
+        VideoPlayerController.file(File(videoFile!.path));
     videoPlayerListener = () {
       if (videoController != null && videoController!.value.size != null) {
         // Refreshing the state to update video player with the correct ratio.
