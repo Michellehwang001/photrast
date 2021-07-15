@@ -7,9 +7,8 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:project/ui/kakao_map/map_init.dart';
 import 'dart:convert';
-import 'package:project/viewmodel/test_result.dart';
+import 'package:project/model/model.dart';
 
 void main() {
   test(
