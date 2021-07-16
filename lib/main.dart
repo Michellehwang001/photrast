@@ -6,8 +6,9 @@ import 'package:project/ui/diary_maker/diary_maker.dart';
 import 'package:project/ui/diary_maker/diary_timeLine.dart';
 import 'package:project/ui/kakao_map/map_init.dart';
 import 'package:project/ui/phot_appbar.dart';
-import 'package:project/ui/ui_temp.dart';
+import 'package:project/ui/main_ui.dart';
 import 'package:project/util/camera_app.dart';
+import 'package:project/viewmodel/map_view_model.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -18,12 +19,14 @@ Future<void> main() async {
   } on CameraException catch (e) {
     logError(e.code, e.description);
   }
-  runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider<TestRepository>(create: (context) => TestRepository(),
-        ),
-      ],
-      child: MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider<TestRepository>(
+      create: (context) => TestRepository(),
+    ),
+    ChangeNotifierProvider<MapViewModel>(
+      create: (context) => MapViewModel(),
+    ),
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -48,7 +51,6 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: Photrast(),
-
     );
   }
 }
@@ -109,8 +111,7 @@ class Photrast extends StatelessWidget {
                     child: InkWell(
                       onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => UiTemp()),
+                        MaterialPageRoute(builder: (context) => MainUi()),
                       ),
                       child: Image.asset(
                         'assets/logo_img.png',

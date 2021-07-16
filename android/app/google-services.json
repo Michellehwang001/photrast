@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "72488662474",
+    "project_id": "photrast",
+    "storage_bucket": "photrast.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72488662474:android:ddf80b39510dfeb9aacb33",
+        "android_client_info": {
+          "package_name": "com.photrast.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "72488662474-qfu532c28eaohgv9li9oinmhsm9pa7an.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZipj7uO11Dfn7J5yGfsTY1WRjSBehqy0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "72488662474-qfu532c28eaohgv9li9oinmhsm9pa7an.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project/viewmodel/test_result.dart';
+import 'package:project/model/model.dart';
 import 'package:project/viewmodel/map_view_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -112,11 +112,11 @@ class _MapInitState extends State<MapInit> {
         ),
         Flexible(
           flex: 1,
-          child: Center(),
-          // child: ListView.builder(
-          //   itemBuilder: (context, index) => buildItem(index),
-          //   itemCount: result!.response!.body!.items!.item!.length,
-          // ),
+          // child: Center(),
+          child: ListView.builder(
+            itemBuilder: (context, index) => buildItem(index),
+            itemCount: result!.response!.body!.items!.item!.length,
+          ),
         ),
       ],
     );
