@@ -115,7 +115,7 @@ class _MapInitState extends State<MapInit> {
           // child: Center(),
           child: ListView.builder(
             itemBuilder: (context, index) => buildItem(index),
-            itemCount: result!.response!.body!.items!.item!.length,
+            itemCount: result?.response!.body!.items!.item!.length,
           ),
         ),
       ],
@@ -126,9 +126,9 @@ class _MapInitState extends State<MapInit> {
     return Column(
       children: [
         Image.network(
-            '${result!.response!.body!.items!.item![index].firstimage}'),
-        Text('${result!.response!.body!.items!.item![index].title}'),
-        Text('${result!.response!.body!.items!.item![index].addr1}'),
+            '${result?.response!.body!.items!.item![index].firstimage}'),
+        Text('${result?.response!.body!.items!.item![index].title}'),
+        Text('${result?.response!.body!.items!.item![index].addr1}'),
       ],
     );
   }
