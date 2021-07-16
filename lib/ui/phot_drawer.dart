@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/ui/diary_folder/diary_list.dart';
 import 'package:project/ui/kakao_map/map_init.dart';
+import 'package:project/ui/kakao_map/test_inappwebview.dart';
 import 'diary_maker/diary_timeLine.dart';
 
 class PhotDrawer extends StatelessWidget {
@@ -37,6 +38,7 @@ class PhotDrawer extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
+                    // builder: (context) => TestInAppWebView(),
                     builder: (context) => MapInit(),
                   ));
             },
