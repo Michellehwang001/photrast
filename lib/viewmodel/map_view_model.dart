@@ -6,6 +6,7 @@ class MapViewModel with ChangeNotifier {
   final _locationRepository = LocationRepository();
   late Position position;
   bool isLoading = true;
+  int selectedPage = 0;
 
   MapViewModel() {
     fetch();
@@ -16,5 +17,11 @@ class MapViewModel with ChangeNotifier {
     isLoading = false;
     notifyListeners();
     print('fetch 성공.');
+  }
+
+  void changePage (int index) {
+    selectedPage = index;
+    print('Change Page to $index');
+    notifyListeners();
   }
 }

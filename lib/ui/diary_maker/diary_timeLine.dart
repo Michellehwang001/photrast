@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:project/repository/test_repository.dart';
 import 'package:project/ui/diary_maker/diary_detail.dart';
 import 'package:project/ui/diary_maker/diary_maker.dart';
-import 'package:project/ui/phot_appbar.dart';
 import 'package:provider/provider.dart';
 
 class DiaryTimeLine extends StatefulWidget {
@@ -26,7 +25,6 @@ class _DiaryTimeLineState extends State<DiaryTimeLine> {
     List<Map> staticData = provider.data;
 
     return Scaffold(
-      appBar: PhotAppBar(),
       body: ListView.builder(
         itemCount: provider.data.length,
         shrinkWrap: true,

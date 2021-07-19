@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:project/viewmodel/map_view_model.dart';
+import 'package:provider/provider.dart';
 
 class PhotAppBar extends StatelessWidget implements PreferredSizeWidget{
   const PhotAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var page = context.watch<MapViewModel>();
+
     return AppBar(
       title: Text(
         'PHOTRAST',
@@ -12,7 +16,7 @@ class PhotAppBar extends StatelessWidget implements PreferredSizeWidget{
       ),
       actions: [
         IconButton(
-            onPressed: () {},
+            onPressed: () => page.changePage(1),
             icon: Icon(
               Icons.camera_alt,
               color: Color(0xFFD7EFEF),

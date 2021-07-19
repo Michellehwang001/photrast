@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:project/repository/test_repository.dart';
-import 'package:project/ui/phot_appbar.dart';
 import 'package:provider/provider.dart';
 
 class DiaryList extends StatelessWidget {
@@ -24,7 +21,6 @@ class DiaryList extends StatelessWidget {
     int itemColumnRight = (provider.travelFolder2.length)~/2 ;
 
     return Scaffold(
-      appBar: PhotAppBar(),
       // 전체 스크롤을 주기 위해 SingleChildScrollView 사용
       body: SafeArea(
         child: SingleChildScrollView(

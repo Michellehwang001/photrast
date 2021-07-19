@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:project/ui/phot_appbar.dart';
-import 'package:project/ui/main_ui.dart';
+import 'package:project/viewmodel/map_view_model.dart';
+import 'package:provider/provider.dart';
 
 class Photrast extends StatelessWidget {
   const Photrast({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var page = context.watch<MapViewModel>();
+
     final mediaSize = MediaQuery
         .of(context)
         .size;
 
     return Scaffold(
-      appBar: PhotAppBar(),
       // 백그라운드 이미지 Container
       body: Container(
         decoration: BoxDecoration(
@@ -57,12 +58,7 @@ class Photrast extends StatelessWidget {
                         top: mediaSize.height / 4 + 200,
                         left: mediaSize.width / 2 - 20,
                         child: InkWell(
-                          onTap: () =>
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) =>
-                                    MainUi()),
-                              ),
+                          onTap: () => page.changePage(1),
                           child: Image.asset(
                             'assets/logo_img.png',
                             width: 30,

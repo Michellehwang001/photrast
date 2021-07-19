@@ -52,9 +52,6 @@ class _MapInitState extends State<MapInit> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('카카오맵 - 관광지'),
-      ),
       // isLoading 에 따른 분류..
       body: mapViewModel.isLoading == true
           ? Center(child: CircularProgressIndicator())

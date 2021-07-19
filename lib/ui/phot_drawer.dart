@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:project/ui/diary_folder/diary_list.dart';
-import 'package:project/ui/kakao_map/map_init.dart';
-// import 'package:project/ui/kakao_map/test_inappwebview.dart';
-import 'diary_maker/diary_timeLine.dart';
+import 'package:project/viewmodel/map_view_model.dart';
+import 'package:provider/provider.dart';
 
 class PhotDrawer extends StatelessWidget {
   const PhotDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var page = context.watch<MapViewModel>();
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -33,35 +33,26 @@ class PhotDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.home_outlined),
-            title: Text('Home'),
+            title: Text('Map'),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    // builder: (context) => TestInAppWebView(),
-                    builder: (context) => MapInit(),
-                  ));
+              page.changePage(2);
+              Navigator.pop(context);
             },
           ),
           ListTile(
             leading: Icon(Icons.message),
             title: Text('Diary Time Line'),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DiaryTimeLine(),
-                  ));
+              page.changePage(3);
+              Navigator.pop(context);
             },
           ),
           ListTile(
             leading: Icon(Icons.calendar_view_day_outlined),
             title: Text('Diary'),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DiaryList()),
-              );
+              page.changePage(4);
+              Navigator.pop(context);
             },
           ),
           ListTile(
