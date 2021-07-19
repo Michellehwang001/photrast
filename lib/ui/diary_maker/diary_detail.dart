@@ -3,20 +3,39 @@ import 'package:project/repository/test_repository.dart';
 import 'package:project/ui/phot_appbar.dart';
 import 'package:provider/provider.dart';
 
-class DiaryDetail extends StatelessWidget {
+class DiaryDetail extends StatefulWidget {
   const DiaryDetail({Key? key, required this.travelPhotos, required this.travelTime, required this.travelPosition,required this.travelMemo, required this.index }) : super(key: key);
 
   final travelPhotos;
   final travelTime;
   final travelPosition;
-  final travelMemo;
+  final String? travelMemo;
   final index;
+
+  @override
+  _DiaryDetailState createState() => _DiaryDetailState();
+}
+
+class _DiaryDetailState extends State<DiaryDetail> {
+  final myController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    myController.text = widget.travelMemo ?? "";
+  }
+
+  @override
+  void dispose() {
+    myController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<TestRepository>(context);
-    final myController = TextEditingController();
-    print('$index');
+
+    print('${widget.index}');
 
 
     return Scaffold(
@@ -29,7 +48,7 @@ class DiaryDetail extends StatelessWidget {
             Expanded(
               child: Image.asset(
                 // 'assets/example1.jpg',
-                travelPhotos,
+                widget.travelPhotos,
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.cover,
               ),
@@ -45,12 +64,12 @@ class DiaryDetail extends StatelessWidget {
             SizedBox(height: 10),
             Text(
               // '일시 : 2021년 7월 3일 PM 1:30',
-                travelTime,
+                widget.travelTime,
               style: TextStyle(fontSize: 15, color: Colors.black),
             ),
             Text(
               // '장소 : 서울시 강남구 강남동 강남대로 128',
-              travelPosition,
+              widget.travelPosition,
               style: TextStyle(
                 fontSize: 15,
                 color: Colors.black,
@@ -67,10 +86,7 @@ class DiaryDetail extends StatelessWidget {
                 maxLines: 10,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  // hintText: "사진에 대한 설명을 메모해주세요",
-                  hintText: '$travelMemo',
-
-
+                  hintText: "사진에 대한 설명을 메모해주세요",
 
                 ),
               ),
@@ -104,7 +120,7 @@ class DiaryDetail extends StatelessWidget {
                   child: RaisedButton(
                     onPressed: () {
 
-                      provider.data[index]["travelMemo"]=myController.text;
+                      provider.data[widget.index]["travelMemo"]=myController.text;
                       Navigator.pop(context);
                     },
                     color: Colors.blue,

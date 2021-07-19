@@ -13,10 +13,10 @@ class DiaryList extends StatelessWidget {
     final mediaSize = MediaQuery.of(context).size;
     var provider = Provider.of<TestRepository>(context);
 
-    // print('실험하는 중 1,${provider.travelFolder}');
-    // print('실험하는 중 2,${provider.travelFolder["items"][0]["contents"][0]["travelPhotos"]}');
-    // print('실험하는 중 3,${provider.travelFolder1.length}');
-    // print('실험하는 중 4,${provider.travelFolder1[0]["contents"][0]["travelPhotos"]}');
+    print('실험하는 중 1,${provider.travelFolder}');
+    print('실험하는 중 2,${provider.travelFolder["items"][0]["contents"][0]["travelPhotos"]}');
+    print('실험하는 중 3,${provider.travelFolder1.length}');
+    print('실험하는 중 4,${provider.travelFolder1[0]["contents"][0]["travelPhotos"]}');
     // print('실험하는 중 5,${provider.travelFolder2[0]["contents"]["travelPhotos"]}');
 
     int itemColumnLeft = (provider.travelFolder2.length)~/2 +1;
