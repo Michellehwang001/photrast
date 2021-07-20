@@ -680,13 +680,12 @@ class _CameraHomeState extends State<CameraHome>
           showInSnackBar('파일이 저장되었습니다.');
 
           // Map으로 이동
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => SecondRoute()),
-          // );
+
+
         }
       }
     });
+
   }
 
   void onFlashModeButtonPressed() {

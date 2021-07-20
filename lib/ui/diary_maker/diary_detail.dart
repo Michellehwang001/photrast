@@ -4,7 +4,14 @@ import 'package:project/ui/phot_appbar.dart';
 import 'package:provider/provider.dart';
 
 class DiaryDetail extends StatefulWidget {
-  const DiaryDetail({Key? key, required this.travelPhotos, required this.travelTime, required this.travelPosition,required this.travelMemo, required this.index }) : super(key: key);
+  const DiaryDetail(
+      {Key? key,
+      required this.travelPhotos,
+      required this.travelTime,
+      required this.travelPosition,
+      required this.travelMemo,
+      required this.index})
+      : super(key: key);
 
   final travelPhotos;
   final travelTime;
@@ -37,7 +44,6 @@ class _DiaryDetailState extends State<DiaryDetail> {
 
     print('${widget.index}');
 
-
     return Scaffold(
       appBar: PhotAppBar(),
       body: Padding(
@@ -64,7 +70,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
             SizedBox(height: 10),
             Text(
               // '일시 : 2021년 7월 3일 PM 1:30',
-                widget.travelTime,
+              widget.travelTime,
               style: TextStyle(fontSize: 15, color: Colors.black),
             ),
             Text(
@@ -87,7 +93,6 @@ class _DiaryDetailState extends State<DiaryDetail> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "사진에 대한 설명을 메모해주세요",
-
                 ),
               ),
             ),
@@ -98,7 +103,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.45,
                   height: 50,
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
@@ -109,30 +114,34 @@ class _DiaryDetailState extends State<DiaryDetail> {
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
                   ),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.45,
                   height: 50,
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: () {
-
-                      provider.data[widget.index]["travelMemo"]=myController.text;
+                      provider.data[widget.index]["travelMemo"] =
+                          myController.text;
                       Navigator.pop(context);
                     },
-                    color: Colors.blue,
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
                     child: Text(
                       '저장 하기',
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                 ),

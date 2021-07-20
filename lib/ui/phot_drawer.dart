@@ -41,7 +41,7 @@ class PhotDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.message),
-            title: Text('Diary Time Line'),
+            title: Text('Time Line Photo'),
             onTap: () {
               page.changePage(3);
               Navigator.pop(context);
@@ -49,7 +49,7 @@ class PhotDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.calendar_view_day_outlined),
-            title: Text('Diary'),
+            title: Text('Diary Folder'),
             onTap: () {
               page.changePage(4);
               Navigator.pop(context);

@@ -69,7 +69,8 @@ class TestRepository with ChangeNotifier {
     },
   ];
 
-  List selectedTravelList = [];
+// 실험 7/20
+  // List selectedTravelList = [];
 
   Map<String, dynamic> travelFolder = {
     "items": [
@@ -153,13 +154,17 @@ class TestRepository with ChangeNotifier {
             "travelTime": "2021년 09월 12일 13시 47분",
             "travelPosition": "서울시 서초구 강남동 26-2",
             "travelMemo": "이런 뷰를 어디서 다시 볼 수 있을까",
+
           },
         ],
       },
     ];
 
   List travelFolder2= [];
-  Map<String, dynamic> travelFolder3= {};
+
+
+// 실험 7/20
+  // Map<String, dynamic> travelFolder3= {};
 
 
 

@@ -4,7 +4,9 @@ import 'package:project/ui/phot_appbar.dart';
 import 'package:provider/provider.dart';
 
 class DiaryMaker extends StatefulWidget {
-  DiaryMaker({Key? key}) : super(key: key);
+  DiaryMaker({Key? key, required this.selectedTravelList}) : super(key: key);
+  List selectedTravelList;
+
 
   @override
   _DiaryMakerState createState() => _DiaryMakerState();
@@ -12,6 +14,7 @@ class DiaryMaker extends StatefulWidget {
 
 class _DiaryMakerState extends State<DiaryMaker> {
   var myController = TextEditingController();
+
 
   @override
   void dispose() {
@@ -22,6 +25,8 @@ class _DiaryMakerState extends State<DiaryMaker> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<TestRepository>(context);
+
+    Map<String, dynamic> travelFolder3= {};
 
     return Scaffold(
       appBar: PhotAppBar(),
@@ -43,14 +48,14 @@ class _DiaryMakerState extends State<DiaryMaker> {
               height: MediaQuery.of(context).size.height * 0.8,
               child: GridView.builder(
                 shrinkWrap: true,
-                itemCount: provider.selectedTravelList.length,
+                itemCount: widget.selectedTravelList.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 3),
                     child: Image.asset(
-                      provider.selectedTravelList[index]["travelPhotos"],
+                      widget.selectedTravelList[index]["travelPhotos"],
                       fit: BoxFit.cover,
                       // width: 150,
                       // height: 100,
@@ -67,7 +72,7 @@ class _DiaryMakerState extends State<DiaryMaker> {
               Container(
                 width: MediaQuery.of(context).size.width * 0.45,
                 height: 50,
-                child: RaisedButton(
+                child: ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -78,45 +83,60 @@ class _DiaryMakerState extends State<DiaryMaker> {
                         color: Colors.black,
                         fontWeight: FontWeight.bold),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.grey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                 ),
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.45,
                 height: 50,
-                child: RaisedButton(
+                child: ElevatedButton(
                   onPressed: () {
-
                     // print(provider.travelFolder3);
                     print('실험1:${provider.travelFolder2}');
-                    print('실험2:${provider.travelFolder3}');
-                    print('실험3:${provider.selectedTravelList}');
+                    print('실험2:$travelFolder3');
+                    print('실험3:${widget.selectedTravelList}');
 
-                    provider.travelFolder3.clear();
+
+                    // 실험 7/20
+                    // provider.travelFolder3.clear();
                     // provider.travelFolder3.removeWhere((key, value) => value != null);
 
                     print('실험3-1:${provider.travelFolder2}');
-                    print('실험3-2:${provider.travelFolder3}');
-                    provider.travelFolder3["headTitle"]=myController.text;
-                    print('실험3-1:${provider.travelFolder2}');
-                    print('실험3-2:${provider.travelFolder3}');
-                    provider.travelFolder3["contents"]='${provider.selectedTravelList}';
-                    print('실험3-1:${provider.travelFolder2}');
-                    print('실험3-2:${provider.travelFolder3}');
+                    print('실험3-2:$travelFolder3');
 
-                    provider.travelFolder2.add(provider.travelFolder3);
+                    // 실험 7/20
+                    // provider.travelFolder3["headTitle"] = myController.text;
+                    travelFolder3["headTitle"] = myController.text;
 
-                    print('실험4-1:${provider.travelFolder2}');
-                    print('실험4-2:${provider.travelFolder3}');
-                    print('실험5:${provider.travelFolder2[0]["headTitle"]}');
+                    // print('실험3-1:${provider.travelFolder2}');
+                    // print('실험3-2:${provider.travelFolder3}');
 
-                    provider.selectedTravelList.clear();
+                    // 실험 7/20
+                    // provider.travelFolder3["contents"] = widget.selectedTravelList;
+                    travelFolder3["contents"] = widget.selectedTravelList;
+
+                    // print('실험3-1:${provider.travelFolder2}');
+                    // print('실험3-2:${provider.travelFolder3}');
+
+                    // 실험 7/20
+                    // provider.travelFolder2.add(provider.travelFolder3);
+                    provider.travelFolder2.add(travelFolder3);
+
+                    // print('실험4-1:${provider.travelFolder2}');
+                    // print('실험4-2:${provider.travelFolder3}');
+                    print('실험 diary_maker 5-1:${provider.travelFolder2[0]["headTitle"]}');
+                    print('실험 diary_maker 5-2:${provider.travelFolder2[0]["contents"][0]}');
+                    print('실험 diary_maker 5-3:${provider.travelFolder2[0]["contents"][0]["travelPhotos"]}');
+
+                    // provider.selectedTravelList.clear();
+
                     // print(provider.selectedTravelList);
                     // print(provider.travelFolder2.length);
-
-
 
                     // provider.travelFolder2.add('{"headTitle" : "${myController.text}", "contents" : ${provider.selectedTravelList}}');
                     // print('${provider.travelFolder2[0].toString()}');
@@ -125,7 +145,6 @@ class _DiaryMakerState extends State<DiaryMaker> {
 
                     Navigator.pop(context);
                   },
-                  color: Colors.blue,
                   child: Text(
                     '저장 하기',
                     style: TextStyle(
@@ -133,8 +152,11 @@ class _DiaryMakerState extends State<DiaryMaker> {
                         color: Colors.black,
                         fontWeight: FontWeight.bold),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                 ),
               ),

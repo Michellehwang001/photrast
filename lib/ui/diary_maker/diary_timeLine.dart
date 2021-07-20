@@ -14,15 +14,18 @@ class DiaryTimeLine extends StatefulWidget {
 
 class _DiaryTimeLineState extends State<DiaryTimeLine> {
   bool isSelectionMode = false;
-
   // Map<int, bool> selectedFlag = {};
+
+//실험 7/20 : 지역변수 vs 전역변수. 이런 로직(clear)에서는 지역으로 쓰는게 맞다!
+
 
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<TestRepository>(context);
     // var provider = context.watch<TestRepository>();
+    // List<Map> staticData = provider.data;
 
-    List<Map> staticData = provider.data;
+    List selectedTravelList = [];
 
     return Scaffold(
       body: ListView.builder(
@@ -30,12 +33,10 @@ class _DiaryTimeLineState extends State<DiaryTimeLine> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           // Map data = staticData[index];
-
           // selectedFlag[index] = selectedFlag[index] ?? false;
           dynamic isSelected = provider.data[index]['selectedFlag'];
 
           return
-
               // GestureDetector(
               // onLongPress: () => onLongPress(isSelected, index),
               // onTap: () => onTap(isSelected, index),
@@ -79,7 +80,7 @@ class _DiaryTimeLineState extends State<DiaryTimeLine> {
                             ),
                           ),
                         );
-                        print('실험하는 중! : ${provider.data[index]["travelMemo"]}');
+                        print('diary_timeline 실험 : ${provider.data[index]["travelMemo"]}');
                       },
                       child: Container(
                         padding: const EdgeInsets.all(8.0),
@@ -129,13 +130,16 @@ class _DiaryTimeLineState extends State<DiaryTimeLine> {
             } else {
               provider.data.map((e) {
                 return e['selectedFlag']
-                    ? provider.selectedTravelList.add(e)
+
+//                실험 7/20
+//                     ? provider.selectedTravelList.add(e)
+                    ? selectedTravelList.add(e)
                     : null;
               }).toList();
 
               provider.data.removeWhere((e) => e['selectedFlag']);
 
-              // print('실험하는 중! : ${provider.selectedTravelList}');
+              print('실험 diary_timeline : $selectedTravelList');
               // print('실험하는 중! : ${provider.data}');
               // provider.data.removeAt(2);
               // print('실험하는 중! : ${provider.data}');
@@ -153,19 +157,20 @@ class _DiaryTimeLineState extends State<DiaryTimeLine> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return DiaryMaker();
+                    return DiaryMaker(selectedTravelList: selectedTravelList);
                   },
                 ),
               );
               isSelectionMode = false;
-              print('${provider.travelFolder3["headTitle"]}');
+              // print('${provider.travelFolder3["headTitle"]}');
 
               // print('실험하는 중! : ${provider.selectedTravelList}');
 
             }
           });
         },
-        label: Text('Diary 만들기'),
+        label: isSelectionMode? Text('선택완료'):Text('Diary 만들기'),
+        backgroundColor: isSelectionMode? Colors.red: Colors.tealAccent[500],
       ),
     );
   }
