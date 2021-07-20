@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:project/util/firebase_api.dart';
+import 'package:project/ui/kakao_map/map_init.dart';
+import 'package:project/viewmodel/map_view_model.dart';
 import 'package:video_player/video_player.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -155,7 +157,7 @@ class _CameraHomeState extends State<CameraHome>
               ),
             ),
           ),
-          _captureControlRowWidget(),
+          _captureControlRowWidget(context),
           _modeControlRowWidget(),
           Padding(
             padding: const EdgeInsets.all(5.0),
@@ -487,7 +489,7 @@ class _CameraHomeState extends State<CameraHome>
   }
 
   /// Display the control bar with buttons to take pictures and record videos.
-  Widget _captureControlRowWidget() {
+  Widget _captureControlRowWidget(BuildContext context) {
     final CameraController? cameraController = controller;
 
     return Row(
@@ -643,9 +645,40 @@ class _CameraHomeState extends State<CameraHome>
     }
   }
 
+  // 파일 storage에 업로드 & firestore 저장
+  Future<void> _uploadPhotoInfo(File image) async {
+    final firebaseStorageRef = FirebaseStorage.instance
+        .ref()
+        .child('photo_info')
+        .child('${DateTime.now().millisecondsSinceEpoch}.png');
+
+    final task = await firebaseStorageRef.putFile(
+        image, SettableMetadata(contentType: 'image/png'));
+
+    // Get the Download Url
+    final uri = await task.ref.getDownloadURL();
+
+    // Get the Map Info
+    var provider = context.read<MapViewModel>();
+
+    // Write Data in Firebase_store
+    final doc = FirebaseFirestore.instance.collection('photo_info').doc();
+
+    await doc.set({
+      'id': doc.id,
+      'photo_url': uri.toString(),
+      'register_date': DateTime.now(),
+      'mapx': provider.position.latitude,
+      'mapy': provider.position.longitude
+    }).then((value) => print('Download-Link : ${uri.toString()}'));
+
+    // 완료 후 Map으로 화면으로 이동
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext context) => MapInit()));
+  }
+
   // camera saved.
   void onTakePictureButtonPressed() {
-
     takePicture().then((XFile? file) async {
       if (mounted) {
         setState(() {
@@ -654,32 +687,13 @@ class _CameraHomeState extends State<CameraHome>
           videoController = null;
         });
 
-
         // 찍은 사진을 firebase storage 에 저장
         if (file != null) {
-          UploadTask? task;
-          final fileName = basename(file.path);
-          final destination = 'upload_images/$fileName';
           File upFile = File(file.path);
-
-          task = FirebaseApi.uploadFile(destination, upFile);
-
-          if (task == null) return;
-
-          final snapshot = await task.whenComplete(() {});
-          final urlDownload = await snapshot.ref.getDownloadURL();
-
-          print('Download-Link : $urlDownload');
-          showInSnackBar('파일이 저장되었습니다.');
-
-          //var page = context.read<MapViewModel>();
-          // Map으로 이동
-
-
+          _uploadPhotoInfo(upFile);
         }
       }
     });
-
   }
 
   void onFlashModeButtonPressed() {
