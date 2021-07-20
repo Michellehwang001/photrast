@@ -1,9 +1,3 @@
-// Copyright 2013 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-// ignore_for_file: public_member_api_docs
-
 import 'dart:async';
 import 'dart:io';
 import 'package:camera/camera.dart';
@@ -12,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:project/util/firebase_api.dart';
 import 'package:video_player/video_player.dart';
-import 'package:path_provider/path_provider.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -679,6 +672,7 @@ class _CameraHomeState extends State<CameraHome>
           print('Download-Link : $urlDownload');
           showInSnackBar('파일이 저장되었습니다.');
 
+          //var page = context.read<MapViewModel>();
           // Map으로 이동
 
 

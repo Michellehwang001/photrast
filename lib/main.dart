@@ -5,11 +5,14 @@ import 'package:project/ui/main_ui.dart';
 import 'package:project/util/camera_app.dart';
 import 'package:project/viewmodel/map_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   // Fetch the available cameras before initializing the app.
   try {
     WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+
     cameras = await availableCameras();
   } on CameraException catch (e) {
     logError(e.code, e.description);

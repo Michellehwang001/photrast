@@ -7,7 +7,6 @@ class Photrast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var page = context.watch<MapViewModel>();
 
     final mediaSize = MediaQuery
         .of(context)
@@ -58,7 +57,10 @@ class Photrast extends StatelessWidget {
                         top: mediaSize.height / 4 + 200,
                         left: mediaSize.width / 2 - 20,
                         child: InkWell(
-                          onTap: () => page.changePage(1),
+                          onTap: () {
+                            var page = context.read<MapViewModel>();
+                            page.changePage(1);
+                          },
                           child: Image.asset(
                             'assets/logo_img.png',
                             width: 30,

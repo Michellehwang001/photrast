@@ -7,7 +7,7 @@ class PhotDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var page = context.watch<MapViewModel>();
+    var page = context.read<MapViewModel>();
 
     return Drawer(
       child: ListView(
