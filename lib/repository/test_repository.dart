@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TestRepository with ChangeNotifier {
+  int rad=1000;
+  int typeID=39;
+
   List<Map> data = [
     {
       "id": 1,

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/model/model.dart';
+import 'package:project/repository/test_repository.dart';
 import 'package:project/viewmodel/map_view_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -16,15 +17,18 @@ class MapInit extends StatefulWidget {
 }
 
 class _MapInitState extends State<MapInit> {
+
   //late WebViewController _webViewController;
   // late InAppWebViewController _webViewController;
 
   TestResult? result;
 
-  Future<TestResult> fetchData() async {
-    int rad = 1000;
+  Future<TestResult> fetchData(int typeID, int rad) async {
     var response = await http.get(Uri.parse(
-        'http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?serviceKey=l32ogI8HTVFiWOJB%2BmMSPbD%2BAExpCboabtx1ke0l0oLAJn0G5PlDB7SVXps5BGU8h7HU2woXDP5t69rN7mFytw%3D%3D&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&contentTypeId=39&mapX=126.981611&mapY=37.568477&radius=$rad&listYN=Y&_type=json'));
+    'http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?ServiceKey=l32ogI8HTVFiWOJB%2BmMSPbD%2BAExpCboabtx1ke0l0oLAJn0G5PlDB7SVXps5BGU8h7HU2woXDP5t69rN7mFytw%3D%3D&contentTypeId=$typeID&mapX=126.981106&mapY=37.568477&radius=$rad&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A&numOfRows=12&pageNo=1&_type=json'
+    ));
+
+
     TestResult result =
         TestResult.fromJson(json.decode(utf8.decode(response.bodyBytes)));
     return result;
@@ -33,7 +37,8 @@ class _MapInitState extends State<MapInit> {
   @override
   void initState() {
     super.initState();
-    fetchData().then((value) {
+
+    fetchData(38, 1000).then((value) {
       setState(() {
         result = value;
       });
@@ -43,6 +48,7 @@ class _MapInitState extends State<MapInit> {
   @override
   Widget build(BuildContext context) {
     final mapViewModel = context.watch<MapViewModel>();
+
 
     if (mapViewModel.isLoading == false) {
       final lng = mapViewModel.position.longitude;
@@ -56,18 +62,18 @@ class _MapInitState extends State<MapInit> {
       body: mapViewModel.isLoading == true
           ? Center(child: CircularProgressIndicator())
           : _loadingWebView(
-              mapViewModel.position.longitude, mapViewModel.position.latitude),
+              mapViewModel.position.longitude, mapViewModel.position.latitude, context),
     );
   }
 
-  Widget _loadingWebView(double lng, double lat) {
+  Widget _loadingWebView(double lng, double lat, context) {
     // 카카오맵 로딩 url
     String url =
         'https://www.igottabook.com/photrast/kakao_map_my_location.html?lat=$lat&lng=$lng';
     final Completer controllerCompleter = Completer<InAppWebViewController>();
     final Completer<void> pageLoaded = Completer<void>();
     InAppWebViewController _webViewController;
-
+    var provider = Provider.of<TestRepository>(context);
     return Column(
       children: [
         Flexible(
@@ -85,25 +91,89 @@ class _MapInitState extends State<MapInit> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                provider.typeID=12;
+                TestResult? value = await fetchData(provider.typeID,provider.rad );
                 setState(() {
-                  // int rad = 500;
-                  // fetchData();
+                  result = value;
                 });
               },
               child: Text('관광지'),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: (){
+                provider.typeID=39;
+                fetchData(provider.typeID, provider.rad).then((value) {
+                  setState(() {
+                    result = value;
+                  });
+                });},
               child: Text('식당'),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                provider.typeID=32;
+                fetchData(provider.typeID, provider.rad).then((value) {
+                setState(() {
+                  result = value;
+                });
+              });},
               child: Text('숙박'),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                provider.typeID=38;
+                fetchData(provider.typeID, provider.rad).then((value) {
+                setState(() {
+                  result = value;
+                });
+              });},
               child: Text('쇼핑'),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              onPressed: () async {
+                provider.rad=500;
+                TestResult? value = await fetchData(provider.typeID, provider.rad);
+                setState(() {
+                  result = value;
+                });
+              },
+              child: Text('500m'),
+            ),
+            ElevatedButton(
+              onPressed: (){
+                provider.rad=1000;
+                fetchData(provider.typeID, provider.rad).then((value) {
+                  setState(() {
+                    result = value;
+                  });
+                });},
+              child: Text('1Km'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                provider.rad=2000;
+                fetchData(provider.typeID, provider.rad).then((value) {
+                setState(() {
+                  result = value;
+                });
+              });},
+              child: Text('2Km'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                provider.rad=10000;
+                fetchData(provider.typeID, provider.rad).then((value) {
+                setState(() {
+                  result = value;
+                });
+              });},
+              child: Text('10Km'),
             ),
           ],
         ),

@@ -973,3 +973,41 @@ class _CameraHomeState extends State<CameraHome>
     showInSnackBar('Error: ${e.code}\n${e.description}');
   }
 }
+
+
+// 7/21 살려둔 코딩
+// void onTakePictureButtonPressed() {
+//
+//   takePicture().then((XFile? file) async {
+//     if (mounted) {
+//       setState(() {
+//         imageFile = file;
+//         videoController?.dispose();
+//         videoController = null;
+//       });
+//
+//
+//       // 찍은 사진을 firebase storage 에 저장
+//       if (file != null) {
+//         UploadTask? task;
+//         final fileName = basename(file.path);
+//         final destination = 'upload_images/$fileName';
+//         File upFile = File(file.path);
+//
+//         task = FirebaseApi.uploadFile(destination, upFile);
+//
+//         if (task == null) return;
+//
+//         final snapshot = await task.whenComplete(() {});
+//         final urlDownload = await snapshot.ref.getDownloadURL();
+//
+//         print('Download-Link : $urlDownload');
+//         showInSnackBar('파일이 저장되었습니다.');
+//
+//         //var page = context.read<MapViewModel>();
+//         // Map으로 이동
+//
+//
+//       }
+//     }
+//   });
