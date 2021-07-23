@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kakaomap_webview/kakaomap_webview.dart';
+import 'package:project/model/place_info.dart';
 import 'package:project/model/position_map.dart';
 import 'package:project/viewmodel/map_view_model.dart';
 import 'package:project/viewmodel/place_view_model.dart';
@@ -18,17 +19,15 @@ class KakaoMapApi extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final placeViewModel = context.watch<PlaceViewModel>();
-    final mapViewModel = context.read<MapViewModel>();
+    //final mapViewModel = context.read<MapViewModel>();
 
-    // map 정보 가져오기
-    placeViewModel.items.map((item) {
-      PositionMap map = PositionMap(mapx: item.mapx, mapy: item.mapy);
-      positionMaps.add(map);
-    }).toList();
+    // map정보가져와서 marker 만들기
+    //String marker = getPlaceMaps(placeViewModel.items);
+    String marker = 'addMarker(new kakao.maps.LatLng(37.568477, 126.981106));';
+    String getMarker = getPlaceMaps(placeViewModel.items);
 
-    // map 정보로 marker 만들기
-    String marker = makeStringMarker(positionMaps);
     print('marker --> $marker');
+    print('getMarker--> $getMarker');
 
     return Scaffold(
       body: Column(
@@ -40,10 +39,9 @@ class KakaoMapApi extends StatelessWidget {
               kakaoMapKey: kakaoMapKey,
               // lat: mapViewModel.position?.latitude ?? 0.0,
               // lng: mapViewModel.position?.longitude ?? 0.0,
-              lat: 126.981106,
-              lng: 37.568477,
-              markerImageURL:
-                  'https://michellehwang001.github.io/web/images/logo_img.png',
+              lat: 37.568477,
+              lng: 126.981106,
+              markerImageURL: 'https://michellehwang001.github.io/web/images/logo_img.png',
               customScript: '''
               var markers = [];
 
@@ -51,9 +49,10 @@ class KakaoMapApi extends StatelessWidget {
                 var marker = new kakao.maps.Marker({position: position});
                 marker.setMap(map);
                 markers.push(marker);
-              }'''
+              }
+              '''
               +
-                  marker
+                  marker + getMarker
               +
               '''
               var zoomControl = new kakao.maps.ZoomControl();
@@ -77,14 +76,31 @@ class KakaoMapApi extends StatelessWidget {
     );
   }
 
+  String getPlaceMaps(List<Item> items) {
+    String marker;
+
+    positionMaps.clear();
+
+    // map 정보 가져오기
+    items.map((item) {
+      PositionMap map = PositionMap(lat: item.mapy, lon: item.mapx);
+      positionMaps.add(map);
+    }).toList();
+
+    marker = makeStringMarker(positionMaps);
+
+    return marker;
+  }
+
   String makeStringMarker(List<PositionMap> maps) {
     String result = '';
     maps.map((map) {
-      result = result + 'addMarker(new kakao.maps.LatLng(' + map.mapx.toString() + ', ' + map.mapy.toString() + '));';
+      result = result + 'addMarker(new kakao.maps.LatLng(' + map.lat.toString() + ', ' + map.lon.toString() + '));';
     }).toList();
 
     return result;
   }
+
 
   // Future<void> _openKakaoMapScreen(BuildContext context) async {
   //   KakaoMapUtil util = KakaoMapUtil();

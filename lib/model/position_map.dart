@@ -1,20 +1,20 @@
 class PositionMap {
-  double? mapx;
-  double? mapy;
+  double? lat;
+  double? lon;
 
   PositionMap({
-      this.mapx, 
-      this.mapy});
+      this.lat,
+      this.lon});
 
   PositionMap.fromJson(dynamic json) {
-    mapx = json["mapx"];
-    mapy = json["mapy"];
+    lat = json["mapy"];
+    lon = json["mapx"];
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map["mapx"] = mapx;
-    map["mapy"] = mapy;
+    map["mapx"] = lon;
+    map["mapy"] = lat;
     return map;
   }
 
