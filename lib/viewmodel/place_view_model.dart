@@ -12,6 +12,7 @@ class PlaceViewModel with ChangeNotifier{
   // double _mapy;
   int _typeID;
   int _rad;
+  String markers = '';
 
   void setMap(double x, double y) {
     _mapx = x;
@@ -40,11 +41,27 @@ class PlaceViewModel with ChangeNotifier{
     isLoading = true;
     notifyListeners();
 
-    items = await _placeRepository.fetchData(_mapx, _mapy, _typeID, _rad);
+    await _placeRepository.fetchData(_mapx, _mapy, _typeID, _rad).then((values) {
+      items = values;
+      markers = makeStringMarker(values);
+      print('markers--> $markers');
 
-    isLoading = false;
-    notifyListeners();
+      isLoading = false;
+      notifyListeners();
+    });
+
   }
 
+  // Map Marker정보도 여기에 만들자..
+  String makeStringMarker(List<Item> values) {
+    String result = '';
+
+    values.map((e) {
+      result = result
+          + 'addMarker(new kakao.maps.LatLng( ${e.mapy}, ${e.mapx}));';
+    }).toList();
+
+    return result;
+  }
 
 }
