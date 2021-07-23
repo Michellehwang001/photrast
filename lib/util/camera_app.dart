@@ -668,8 +668,8 @@ class _CameraHomeState extends State<CameraHome>
       'id': doc.id,
       'photo_url': uri.toString(),
       'register_date': DateTime.now(),
-      'mapx': provider.position.latitude,
-      'mapy': provider.position.longitude
+      'mapx': provider.position?.latitude ?? 0.0,
+      'mapy': provider.position?.longitude ?? 0.0
     }).then((value) => print('Download-Link : ${uri.toString()}'));
 
     // 완료 후 Map으로 화면으로 이동

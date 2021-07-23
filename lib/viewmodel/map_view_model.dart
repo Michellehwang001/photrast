@@ -4,7 +4,7 @@ import 'package:project/repository/location_repository.dart';
 
 class MapViewModel with ChangeNotifier {
   final _locationRepository = LocationRepository();
-  late Position position;
+  Position? position;
   bool isLoading = true;
   int selectedPage = 0;
 
@@ -16,10 +16,11 @@ class MapViewModel with ChangeNotifier {
     position = await _locationRepository.getCurrentLocation();
     isLoading = false;
     notifyListeners();
-    print('fetch 성공.');
   }
 
+  // 페이지 이동.
   void changePage (int index) {
+    // 현재 페이지 정보
     selectedPage = index;
     print('Change Page to $index');
     notifyListeners();

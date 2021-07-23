@@ -24,10 +24,11 @@ class MainUi extends StatelessWidget {
   Widget build(BuildContext context) {
     var page = context.watch<MapViewModel>();
 
+    // PlceView
     return Scaffold(
-      appBar: PhotAppBar(),
-      body:_pages[page.selectedPage],
-      drawer: PhotDrawer(),
+        appBar: PhotAppBar(),
+        body:_pages[page.selectedPage],
+        drawer: PhotDrawer(),
     );
   }
 }
