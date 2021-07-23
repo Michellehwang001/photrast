@@ -24,7 +24,7 @@ class _KakaoMapApiState extends State<KakaoMapApi> {
     //final mapViewModel = context.read<MapViewModel>();
 
     // map정보가져와서 marker 만들기
-    String marker = 'addMarker(new kakao.maps.LatLng(37.568477, 126.981106)); ';
+    String marker = 'addMarker(new kakao.maps.LatLng(37.568477, 126.981106)); addMarker(new kakao.maps.LatLng(37.5744783860, 126.9819927000)); ';
     String getMarker = marker + placeViewModel.markers;
     print('getMarker --> $getMarker');
 
@@ -59,11 +59,7 @@ class _KakaoMapApiState extends State<KakaoMapApi> {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(message.message)));
               }),
-          // ElevatedButton(
-          //     child: Text('Kakao map screen'),
-          //     onPressed: () async {
-          //       await _openKakaoMapScreen(context);
-          //     })
+
         ],
       ),
     );
